@@ -131,7 +131,8 @@ class NavigationHistoryRecorder(sublime_plugin.EventListener):
 
         path = view.file_name()
         row, col = view.rowcol(view.sel()[0].a)
-        history.record_movement(Location(path, row + 1, col + 1))
+        if not (view.viewport_extent() == (0.0, 0.0)): # not a preview
+            history.record_movement(Location(path, row + 1, col + 1))
 
     # def on_close(self, view):
     #     """When a view is closed, check to see if the window was closed too
